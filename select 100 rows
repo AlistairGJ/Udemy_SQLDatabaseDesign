@@ -1,0 +1,3 @@
+SELECT *
+FROM consumer_complaints
+LIMIT 100
