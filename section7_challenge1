@@ -1,0 +1,3 @@
+SELECT pets.name, owners.name, owners.surname
+FROM pets
+INNER JOIN owners ON pets.ownerid = owners.ownerid;

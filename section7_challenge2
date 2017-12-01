@@ -1,0 +1,3 @@
+SELECT pets.name, procedurehistory.petid
+FROM pets
+INNER JOIN procedurehistory ON pets.petid = procedurehistory.petid;

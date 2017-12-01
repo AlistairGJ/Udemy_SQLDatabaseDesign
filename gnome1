@@ -1,0 +1,9 @@
+-- Order_details = order_no & prod_cod, order_price
+-- Orders = order_no, order_date, cust_no
+SELECT order_no, order_date, cust_no, prod_cod, quantity, order_price
+FROM order_details a
+INNER JOIN orders b
+ON a.order_no = b.order_no
+INNER JOIN product c
+ON a.prod_cod = c.prod_cod
+WHERE description LIKE "%gnome%";

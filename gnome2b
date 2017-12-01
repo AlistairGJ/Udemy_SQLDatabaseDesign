@@ -1,0 +1,14 @@
+-- Order_details = order_no, order_date
+-- Customers = cust_no, cust_name
+
+SELECT order_no, order_date, cust_no, cust_name
+FROM orders a
+INNER JOIN customers b
+ON a.cust_no = b.cust_no
+WHERE order_no IN
+	(SELECT order_no
+    FROM orders c
+    INNER JOIN order_details d
+    ON c.order_no = d.order_no
+    GROUP BY order_no
+    HAVING SUM(order_price * order_qty) > 1000);

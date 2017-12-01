@@ -1,0 +1,26 @@
+SELECT *
+FROM console_games;
+
+UPDATE console_games
+SET global_sales = na_sales + eu_sales + jp_sales + other_sales;
+
+ALTER TABLE console_games
+ADD COLUMN na_sales_percentage float8;
+
+-- Not ideal, dealt with the nulls in an undesirable way...
+/*
+UPDATE console_games
+SET na_sales_percentage = (na_sales /nullif(global_sales,0)) * 100;
+*/
+
+UPDATE console_games
+SET na_sales_percentage = na_sales / global_sales * 100
+WHERE global_sales > 0;
+
+-- All good so far
+
+
+
+
+
+
