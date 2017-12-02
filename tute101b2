@@ -1,0 +1,8 @@
+SELECT a.order_no, b.prod_cod, SUM(order_price*order_qty)
+FROM orders a 
+INNER JOIN order_details b
+ON a.order_no = b.order_no
+INNER JOIN products c
+ON b.prod_cod = c.prod_cod
+WHERE prod_group LIKE 'C%'
+GROUP BY a.order_no, b.prod_cod;
