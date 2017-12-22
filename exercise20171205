@@ -1,0 +1,45 @@
+--DEPARTMENT(deptnum, descrip, instname, deptname, state, postcode)
+--ACADEMIC(acnum, deptnum*, famname, givename, initials, title)
+--PAPER(panum, title)
+--AUTHOR(panum*, acnum*)
+--FIELD(fieldnum, id, title)
+--INTEREST(fieldnum*, acnum*, descrip)
+
+-- Some kind of 'translational step' ...
+
+-- Are there any academics who have not written any papers? List the acnum,
+-- givename and famname of these academics. Your query must contain a subquery.
+
+
+-- 1. Academics with papers = 0 CONDITION
+-- 2. For these, list acnum, givename, famname
+--		acnum, givename, famname [listed as is] from ACADEMIC
+-- 3. 
+
+SELECT a.acnum, a.famname, a.givename
+FROM academic a
+WHERE a.acnum NOT IN
+(
+    SELECT acnum
+    FROM author
+);
+
+
+
+--2.1
+--List the deptnum and total number of academics for departments with
+--postcode in the range 3000..3999, in descending order of total number of
+--academics for each department.
+
+-- 1. deptnum [listed as is] from department - relation = department
+-- 2. academics [as count] for each department - relation = academic
+-- 3. postcode [conditional] range 3000 - 3999 - relation = department
+-- 4. DESC # total academics from 2.
+
+SELECT a.deptnum, a.postcode, COUNT(b.acnum) as NumAcademics
+FROM department a
+INNER JOIN academic b ON a.deptnum = b.deptnum
+WHERE postcode BETWEEN 3000 AND 3999
+GROUP BY a.deptnum
+ORDER BY COUNT(b.acnum) DESC;
+
