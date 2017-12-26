@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS ProjectLead;
 
 CREATE TABLE Project(
 	ProjectID				INTEGER,
-    PRIMARY KEY (ProjectID)
+    	PRIMARY KEY (ProjectID)
 );
 
 -- How to do drop-downs? (for building and room - dependent dropdowns?)
@@ -20,7 +20,7 @@ CREATE TABLE Project(
 -- For units, must state this as an assumption (and use same throughout the DB) or add to name of attribute
 CREATE TABLE TCU(
 	TCU_ID					INTEGER,
-    Building				VARCHAR(20),
+    	Building				VARCHAR(20),
    	Room					VARCHAR(20),
    	Temperature_celcius		NUMERIC, 
    	PRIMARY KEY (TCU_ID)
@@ -28,23 +28,23 @@ CREATE TABLE TCU(
 
 CREATE TABLE Department(
 	DepartmentID			VARCHAR(5),
-    DepartmentName			VARCHAR(30),
+    	DepartmentName			VARCHAR(30),
    	PRIMARY KEY (DepartmentID)
 );
 
 CREATE TABLE Sample(
 	SampleID				SERIAL,
-    LotNumber				VARCHAR(80),
-   	ExperimentNumber		VARCHAR(80),
+    	LotNumber				VARCHAR(80),
+   	ExperimentNumber			VARCHAR(80),
    	BatchNumber				VARCHAR(80),
    	ProcessStep				VARCHAR(80),
    	ProjectID				INTEGER,
-    TCU_ID					INTEGER,
-   	DepartmentID			CHAR(3),
+   	TCU_ID					INTEGER,
+   	DepartmentID				CHAR(3),
    	PRIMARY KEY (SampleID),
    	FOREIGN KEY (ProjectID) REFERENCES Project (ProjectID),
    	FOREIGN KEY (TCU_ID) REFERENCES TCU (TCU_ID),
-    FOREIGN KEY (DepartmentID) REFERENCES Department (DepartmentID)
+    	FOREIGN KEY (DepartmentID) REFERENCES Department (DepartmentID)
 );
 
 
@@ -52,12 +52,12 @@ CREATE TABLE Sample(
 
 CREATE TABLE Employee(
 	EmployeeID				VARCHAR(7),
-    FirstName				VARCHAR(80),
+   	FirstName				VARCHAR(80),
    	LastName				VARCHAR(80),
    	Email					VARCHAR(254), 
    	ManagerID				VARCHAR(7),
-   	DepartmentID			VARCHAR(5),
-    PRIMARY KEY (EmployeeID),
+   	DepartmentID				VARCHAR(5),
+    	PRIMARY KEY (EmployeeID),
    	FOREIGN KEY (ManagerID) REFERENCES Employee,
    	FOREIGN KEY (DepartmentID) REFERENCES Department
 );
@@ -65,36 +65,37 @@ CREATE TABLE Employee(
 -- Function for determining overdue status?
 -- Only specify date format when printing
 -- OVERDUE function / query - not something that is stored. If stored - everyday would have to run and update DB
+
 CREATE TABLE Submission(
-    SubmissionID			SERIAL,
-    NumberOfVials			INTEGER,
-    DateSubmitted			DATE,
-    DueDate					DATE,
-    Volume_microLitre		NUMERIC,
-    UserComment				VARCHAR(1024),
-    ProteinConc_mgPerL		NUMERIC,
-    EmployeeID				VARCHAR(7),
-    SampleID				INTEGER, 
-    PRIMARY KEY (SubmissionID),
-    FOREIGN KEY (EmployeeID) REFERENCES Employee,
-    FOREIGN KEY (SampleID) REFERENCES Sample    
+   	SubmissionID				SERIAL,
+  	NumberOfVials				INTEGER,
+  	DateSubmitted				DATE,
+    	DueDate					DATE,
+    	Volume_microLitre			NUMERIC,
+    	UserComment				VARCHAR(1024),
+   	ProteinConc_mgPerL			NUMERIC,
+    	EmployeeID				VARCHAR(7),
+    	SampleID				INTEGER, 
+    	PRIMARY KEY (SubmissionID),
+   	FOREIGN KEY (EmployeeID) REFERENCES Employee,
+    	FOREIGN KEY (SampleID) REFERENCES Sample    
 );
 
 CREATE TABLE Analysis(
-    AnalysisID				VARCHAR(40),
-    Description				VARCHAR(1024),
-    ResultUnits				VARCHAR(255),  
-    PRIMARY KEY (AnalysisID)
+    	AnalysisID				VARCHAR(40),
+    	Description				VARCHAR(1024),
+    	ResultUnits				VARCHAR(255),  
+    	PRIMARY KEY (AnalysisID)
 );
 
 -- Function for TAT, part of a query
 CREATE TABLE AnalysisResult(
 	AnalysisID				VARCHAR(40),
-   	SubmissionID			INTEGER,
+   	SubmissionID				INTEGER,
    	ResultValue				NUMERIC,
    	PRIMARY KEY (AnalysisID, SubmissionID),
    	FOREIGN KEY (AnalysisID) REFERENCES Analysis, 
-    FOREIGN KEY (SubmissionID) REFERENCES Submission
+    	FOREIGN KEY (SubmissionID) REFERENCES Submission
 );
 
 CREATE TABLE RequiredAnalysis(
