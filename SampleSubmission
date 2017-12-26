@@ -1,0 +1,45 @@
+DROP TABLE Project;
+DROP TABLE Sample;
+DROP TABLE TCU;
+DROP TABLE Department;
+DROP TABLE Employee;
+DROP TABLE Submission;
+DROP TABLE Analysis;
+DROP TABLE AnalysisResult;
+DROP TABLE RequiredAnalysis;
+DROP TABLE ProjectLead;
+
+CREATE TABLE Project(
+	ProjectID			VARCHAR(10),
+    PRIMARY KEY(ProjectID)
+);
+
+CREATE TABLE Sample(
+	SampleID			
+    LotNumber				
+    ExperimentNumber	
+    BatchNumber			VARCHAR(80)
+    ProcessStep			VARCHAR(80)
+    ProjectID			
+    TCU_ID				INTEGER
+    DepartmentID		CHAR(3)
+    P
+);
+
+CREATE TABLE TCU(
+	TCU_ID
+    Building
+    Room
+    Temperature
+);
+
+CREATE TABLE Department();
+
+CREATE TABLE Employee();
+
+CREATE TABLE Submission();
+
+CREATE TABLE Analysis();
+CREATE TABLE AnalysisResult();
+CREATE TABLE RequiredAnalysis();
+CREATE TABLE ProjectLead();
